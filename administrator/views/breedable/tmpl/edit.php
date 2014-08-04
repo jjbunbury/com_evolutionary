@@ -77,7 +77,7 @@ $document->addStyleSheet('components/com_evolutionary/assets/css/evolutionary.cs
         <?php echo JHtml::_('bootstrap.endTab'); ?>
         
         <?php if (JFactory::getUser()->authorise('core.admin','evolutionary')) : ?>
-	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'permissions', JText::_('COM_EVOLUTIONARY_FIELDSET_RULES', true)); ?>
+	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'permissions', JText::_('JGLOBAL_ACTION_PERMISSIONS_LABEL', true)); ?>
 		<?php echo $this->form->getInput('rules'); ?>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 <?php endif; ?>

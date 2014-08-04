@@ -126,8 +126,6 @@ class EvolutionaryViewBreedables extends JViewLegacy {
 		'a.id' => JText::_('JGRID_HEADING_ID'),
 		'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 		'a.state' => JText::_('JSTATUS'),
-		'a.checked_out' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CHECKED_OUT'),
-		'a.checked_out_time' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CHECKED_OUT_TIME'),
 		);
 	}
 
