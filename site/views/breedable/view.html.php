@@ -36,6 +36,7 @@ class EvolutionaryViewBreedable extends JViewLegacy {
 
         if (!empty($this->item)) {
             
+		$this->item->category_title = $this->getModel()->getCategoryName($this->item->category)->title;
 		$this->form		= $this->get('Form');
         }
 

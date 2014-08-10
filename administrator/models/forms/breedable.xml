@@ -6,9 +6,133 @@
             readonly="true" class="readonly"
             description="JGLOBAL_FIELD_ID_DESC" /> 
 
+       <field name="title" type="text"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_TITLE"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_TITLE" 
+                
+                
+                 required="true" 
+            filter="string"
+            maxlength="40" /> 
+
+       <field name="alias" type="text"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ALIAS"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_ALIAS" 
+                
+                
+                 required="true" 
+            filter="string"
+            maxlength="40" /> 
+
+       <field name="texture" type="list"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_TEXTURE"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_TEXTURE" 
+                
+                
+                 required="true" 
+            menu_published="0"
+            filter="raw">
+                <option value="test">test</option>
+        </field> 
+
+ 
+		<field name="filter_texture" type="list" onchange="this.form.submit();">
+			<option value="">COM_EVOLUTIONARY_BREEDABLES_TEXTURE_FILTER</option>
+			<option value="test">test</option>
+		</field> 
+
+       <field name="animation" type="list"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ANIMATION"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_ANIMATION" 
+                
+                
+                 required="true" 
+            menu_published="0"
+            filter="raw">
+                <option value="test">test</option>
+        </field> 
+
+ 
+		<field name="filter_animation" type="list" onchange="this.form.submit();">
+			<option value="">COM_EVOLUTIONARY_BREEDABLES_ANIMATION_FILTER</option>
+			<option value="test">test</option>
+		</field> 
+
+       <field name="config" type="list"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CONFIG"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CONFIG" 
+                
+                
+                 required="true" 
+            menu_published="0"
+            filter="raw">
+                <option value="test">test</option>
+        </field> 
+
+ 
+		<field name="filter_config" type="list" onchange="this.form.submit();">
+			<option value="">COM_EVOLUTIONARY_BREEDABLES_CONFIG_FILTER</option>
+			<option value="test">test</option>
+		</field> 
+
+       <field name="category" type="category"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CATEGORY"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CATEGORY" 
+                
+                
+                 required="true" 
+            extension="com_evolutionary"
+            menu_published="0"
+            filter="raw" /> 
+
+ 
+		<field name="filter_category" type="category"
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CATEGORY"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CATEGORY"  extension="com_evolutionary" show_root="1" onchange="this.form.submit();" /> 
+
+       <field name="created" type="calendar"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CREATED"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CREATED" 
+                
+                
+                 required="true"  /> 
+
        <field name="created_by" type="createdby" default="" 
             label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CREATED_BY"
             description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CREATED_BY"  /> 
+
+       <field name="modified" type="calendar"
+                
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_MODIFIED"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_MODIFIED" 
+                
+                
+                 required="true"  /> 
+
+       <field name="modified_by" type="text" size="40" class="inputbox"
+        
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_MODIFIED_BY"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_MODIFIED_BY" 
+         default="0" 
+        
+         required="true" 
+        filter="safehtml" /> 
+
+       <field name="version" type="text" size="40" class="inputbox"
+        
+            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_VERSION"
+            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_VERSION" 
+        
+        
+         required="true" 
+        filter="safehtml" /> 
 
          <field
         name="state"
@@ -20,6 +144,8 @@
         default="1">
         <option value="1">JPUBLISHED</option>
         <option value="0">JUNPUBLISHED</option>
+        <option value="2">JARCHIVED</option>
+        <option value="-2">JTRASHED</option>
     </field> 
 
                         <field name="checked_out" type="hidden" filter="unset" />

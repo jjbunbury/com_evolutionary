@@ -26,13 +26,53 @@ if (!$canEdit && JFactory::getUser()->authorise('core.edit.own', 'com_evolutiona
 			<td><?php echo $this->item->id; ?></td>
 </tr>
 <tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_TITLE'); ?></th>
+			<td><?php echo $this->item->title; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ALIAS'); ?></th>
+			<td><?php echo $this->item->alias; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_TEXTURE'); ?></th>
+			<td><?php echo $this->item->texture; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ANIMATION'); ?></th>
+			<td><?php echo $this->item->animation; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CONFIG'); ?></th>
+			<td><?php echo $this->item->config; ?></td>
+</tr>
+<tr>
 			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_STATE'); ?></th>
 			<td>
 			<i class="icon-<?php echo ($this->item->state == 1) ? 'publish' : 'unpublish'; ?>"></i></td>
 </tr>
 <tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CATEGORY'); ?></th>
+			<td><?php echo $this->item->category_title; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CREATED'); ?></th>
+			<td><?php echo $this->item->created; ?></td>
+</tr>
+<tr>
 			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CREATED_BY'); ?></th>
 			<td><?php echo $this->item->created_by_name; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_MODIFIED'); ?></th>
+			<td><?php echo $this->item->modified; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_MODIFIED_BY'); ?></th>
+			<td><?php echo $this->item->modified_by; ?></td>
+</tr>
+<tr>
+			<th><?php echo JText::_('COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_VERSION'); ?></th>
+			<td><?php echo $this->item->version; ?></td>
 </tr>
 
         </table>

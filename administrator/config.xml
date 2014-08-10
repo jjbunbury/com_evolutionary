@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
-    <fieldset description="COM_EVOLUTIONARY_CONFIGURATION" label="COM_EVOLUTIONARY" name="evolutionary">
+    <fieldset label="COM_EVOLUTIONARY" name="evolutionary">
         
     </fieldset>
     <fieldset 

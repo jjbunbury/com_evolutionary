@@ -110,6 +110,36 @@ if (!empty($this->extra_sidebar)) {
 					</th>
                 <?php endif; ?>
                     
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_TITLE', 'a.title', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_ALIAS', 'a.alias', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_TEXTURE', 'a.texture', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_ANIMATION', 'a.animation', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CONFIG', 'a.config', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CATEGORY', 'a.category', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CREATED', 'a.created', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_MODIFIED', 'a.modified', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_MODIFIED_BY', 'a.modified_by', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_VERSION', 'a.version', $listDirn, $listOrder); ?>
+				</th>
                     
                     
                 <?php if (isset($this->items[0]->id)): ?>
@@ -173,6 +203,53 @@ if (!empty($this->extra_sidebar)) {
 					</td>
                 <?php endif; ?>
                     
+				<td>
+				<?php if (isset($item->checked_out) && $item->checked_out) : ?>
+					<?php echo JHtml::_('jgrid.checkedout', $i, $item->editor, $item->checked_out_time, 'breedables.', $canCheckin); ?>
+				<?php endif; ?>
+				<?php if ($canEdit) : ?>
+					<a href="<?php echo JRoute::_('index.php?option=com_evolutionary&task=breedable.edit&id='.(int) $item->id); ?>">
+					<?php echo $this->escape($item->title); ?></a>
+				<?php else : ?>
+					<?php echo $this->escape($item->title); ?>
+				<?php endif; ?>
+				</td>
+				<td>
+
+					<?php echo $item->alias; ?>
+				</td>
+				<td>
+
+					<?php echo $item->texture; ?>
+				</td>
+				<td>
+
+					<?php echo $item->animation; ?>
+				</td>
+				<td>
+
+					<?php echo $item->config; ?>
+				</td>
+				<td>
+
+					<?php echo $item->category; ?>
+				</td>
+				<td>
+
+					<?php echo $item->created; ?>
+				</td>
+				<td>
+
+					<?php echo $item->modified; ?>
+				</td>
+				<td>
+
+					<?php echo $item->modified_by; ?>
+				</td>
+				<td>
+
+					<?php echo $item->version; ?>
+				</td>
 
 
                 <?php if (isset($this->items[0]->id)): ?>

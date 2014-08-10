@@ -27,9 +27,19 @@ class EvolutionaryModelBreedables extends JModelList {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
                                 'id', 'a.id',
-                'ordering', 'a.ordering',
+                'title', 'a.title',
+                'alias', 'a.alias',
+                'texture', 'a.texture',
+                'animation', 'a.animation',
+                'config', 'a.config',
                 'state', 'a.state',
+                'category', 'a.category',
+                'created', 'a.created',
                 'created_by', 'a.created_by',
+                'modified', 'a.modified',
+                'modified_by', 'a.modified_by',
+                'version', 'a.version',
+                'ordering', 'a.ordering',
 
             );
         }
@@ -89,6 +99,9 @@ class EvolutionaryModelBreedables extends JModelList {
     $query->select('uc.name AS editor');
     $query->join('LEFT', '#__users AS uc ON uc.id=a.checked_out');
     
+		// Join over the category 'category'
+		$query->select('category.title AS category_title');
+		$query->join('LEFT', '#__categories AS category ON category.id = a.category');
 		// Join over the created by field 'created_by'
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
         
@@ -100,11 +113,55 @@ class EvolutionaryModelBreedables extends JModelList {
                 $query->where('a.id = ' . (int) substr($search, 3));
             } else {
                 $search = $db->Quote('%' . $db->escape($search, true) . '%');
-                
+                $query->where('( a.title LIKE '.$search.'  OR  a.alias LIKE '.$search.' )');
             }
         }
 
         
+
+		//Filtering texture
+		$filter_texture = $this->state->get("filter.texture");
+		if ($filter_texture) {
+			$query->where("a.texture = '".$filter_texture."'");
+		}
+
+		//Filtering animation
+		$filter_animation = $this->state->get("filter.animation");
+		if ($filter_animation) {
+			$query->where("a.animation = '".$filter_animation."'");
+		}
+
+		//Filtering config
+		$filter_config = $this->state->get("filter.config");
+		if ($filter_config) {
+			$query->where("a.config = '".$filter_config."'");
+		}
+
+		//Filtering category
+		$filter_category = $this->state->get("filter.category");
+		if ($filter_category) {
+			$query->where("a.category = '".$filter_category."'");
+		}
+
+		//Filtering created
+		$filter_created_from = $this->state->get("filter.created.from");
+		if ($filter_created_from) {
+			$query->where("a.created >= '".$filter_created_from."'");
+		}
+		$filter_created_to = $this->state->get("filter.created.to");
+		if ($filter_created_to) {
+			$query->where("a.created <= '".$filter_created_to."'");
+		}
+
+		//Filtering modified
+		$filter_modified_from = $this->state->get("filter.modified.from");
+		if ($filter_modified_from) {
+			$query->where("a.modified >= '".$filter_modified_from."'");
+		}
+		$filter_modified_to = $this->state->get("filter.modified.to");
+		if ($filter_modified_to) {
+			$query->where("a.modified <= '".$filter_modified_to."'");
+		}
 
         // Add the list ordering clause.
         $orderCol = $this->state->get('list.ordering');
@@ -118,7 +175,21 @@ class EvolutionaryModelBreedables extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+        foreach($items as $item){
+	
+					$item->texture = JText::_('COM_EVOLUTIONARY_BREEDABLES_TEXTURE_OPTION_' . strtoupper($item->texture));
+					$item->animation = JText::_('COM_EVOLUTIONARY_BREEDABLES_ANIMATION_OPTION_' . strtoupper($item->animation));
+					$item->config = JText::_('COM_EVOLUTIONARY_BREEDABLES_CONFIG_OPTION_' . strtoupper($item->config));
+
+			if ( isset($item->category) ) {
+
+				// Get the title of that particular template
+					$title = EvolutionaryFrontendHelper::getCategoryNameByCategoryId($item->category);
+
+					// Finally replace the data object with proper information
+					$item->category = !empty($title) ? $title : $item->category;
+				}
+}
         return $items;
     }
 

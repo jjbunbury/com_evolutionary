@@ -49,19 +49,59 @@ $doc->addScript(JUri::base() . '/components/com_evolutionary/assets/js/form.js')
 		<div class="control-label"><?php echo $this->form->getLabel('id'); ?></div>
 		<div class="controls"><?php echo $this->form->getInput('id'); ?></div>
 	</div>
-	<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
-
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('title'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('title'); ?></div>
+	</div>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('alias'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('alias'); ?></div>
+	</div>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('texture'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('texture'); ?></div>
+	</div>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('animation'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('animation'); ?></div>
+	</div>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('config'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('config'); ?></div>
+	</div>
 	<input type="hidden" name="jform[state]" value="<?php echo $this->item->state; ?>" />
 
-	<input type="hidden" name="jform[checked_out]" value="<?php echo $this->item->checked_out; ?>" />
-
-	<input type="hidden" name="jform[checked_out_time]" value="<?php echo $this->item->checked_out_time; ?>" />
-
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('category'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('category'); ?></div>
+	</div>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('created'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('created'); ?></div>
+	</div>
 	<?php if(empty($this->item->created_by)): ?>
 		<input type="hidden" name="jform[created_by]" value="<?php echo JFactory::getUser()->id; ?>" />
 	<?php else: ?>
 		<input type="hidden" name="jform[created_by]" value="<?php echo $this->item->created_by; ?>" />
-	<?php endif; ?>				<div class="fltlft" <?php if (!JFactory::getUser()->authorise('core.admin','evolutionary')): ?> style="display:none;" <?php endif; ?> >
+	<?php endif; ?>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('modified'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('modified'); ?></div>
+	</div>
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('modified_by'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('modified_by'); ?></div>
+	</div>
+	<input type="hidden" name="jform[checked_out]" value="<?php echo $this->item->checked_out; ?>" />
+
+	<input type="hidden" name="jform[checked_out_time]" value="<?php echo $this->item->checked_out_time; ?>" />
+
+	<div class="control-group">
+		<div class="control-label"><?php echo $this->form->getLabel('version'); ?></div>
+		<div class="controls"><?php echo $this->form->getInput('version'); ?></div>
+	</div>
+	<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
+				<div class="fltlft" <?php if (!JFactory::getUser()->authorise('core.admin','evolutionary')): ?> style="display:none;" <?php endif; ?> >
                 <?php echo JHtml::_('sliders.start', 'permissions-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
                 <?php echo JHtml::_('sliders.panel', JText::_('ACL Configuration'), 'access-rules'); ?>
                 <fieldset class="panelform">

@@ -24,6 +24,14 @@ class EvolutionaryHelper {
 			'index.php?option=com_evolutionary&view=breedables',
 			$vName == 'breedables'
 		);
+		JHtmlSidebar::addEntry(
+			JText::_('JCATEGORIES') . ' (' . JText::_('COM_EVOLUTIONARY_TITLE_BREEDABLES') . ')',
+			"index.php?option=com_categories&extension=com_evolutionary",
+			$vName == 'categories'
+		);
+		if ($vName=='categories') {
+			JToolBarHelper::title('Evolutionary: JCATEGORIES (COM_EVOLUTIONARY_TITLE_BREEDABLES)');
+		}
 
     }
 

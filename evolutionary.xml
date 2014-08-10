@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.0" method="upgrade">
     <name>com_evolutionary</name>
-    <creationDate>2014-08-04</creationDate>
+    <creationDate>2014-08-10</creationDate>
     <copyright>Copyright (C) 2014. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <author>Dazzle Software</author>
@@ -43,6 +43,8 @@
         <submenu>
             
 			<menu link="option=com_evolutionary&amp;view=breedables" view="breedables" img="components/com_evolutionary/assets/images/s_breedables.png" alt="Evolutionary/Breedables">COM_EVOLUTIONARY_TITLE_BREEDABLES</menu>
+
+			<menu link="option=com_categories&amp;extension=com_evolutionary" view="categories" img="components/com_evolutionary/assets/images/s_breedables.png" alt="Evolutionary/Categories">COM_EVOLUTIONARY_BREEDABLES_CATEGORY</menu>
 
         </submenu>
         <files folder="administrator">

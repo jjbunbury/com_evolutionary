@@ -40,6 +40,9 @@ class EvolutionaryTablebreedable extends JTable {
 		if(($task == 'save' || $task == 'apply') && (!JFactory::getUser()->authorise('core.edit.state','com_evolutionary.breedable.'.$array['id']) && $array['state'] == 1)){
 			$array['state'] = 0;
 		}
+		if($array['id'] == 0){
+			$array['created_by'] = JFactory::getUser()->id;
+		}
 
         if (isset($array['params']) && is_array($array['params'])) {
             $registry = new JRegistry();

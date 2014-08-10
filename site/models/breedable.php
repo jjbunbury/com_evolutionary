@@ -82,6 +82,9 @@ class EvolutionaryModelBreedable extends JModelItem {
         }
 
         
+					$this->_item->texture = JText::_('COM_EVOLUTIONARY_BREEDABLES_TEXTURE_OPTION_' . $this->_item->texture);
+					$this->_item->animation = JText::_('COM_EVOLUTIONARY_BREEDABLES_ANIMATION_OPTION_' . $this->_item->animation);
+					$this->_item->config = JText::_('COM_EVOLUTIONARY_BREEDABLES_CONFIG_OPTION_' . $this->_item->config);
 		if ( isset($this->_item->created_by) ) {
 			$this->_item->created_by_name = JFactory::getUser($this->_item->created_by)->name;
 		}
