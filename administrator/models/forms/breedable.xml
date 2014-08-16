@@ -40,8 +40,8 @@
 
 	</fieldset>
 
-	<fields name="attribs" label="COM_CONTENT_ATTRIBS_FIELDSET_LABEL">
-		<fieldset name="basic" label="COM_CONTENT_ATTRIBS_FIELDSET_LABEL">
+	<fields name="attribs" label="COM_EVOLUTIONARY_FIELDSET_ATTRIBS">
+		<fieldset name="basic" label="COM_EVOLUTIONARY_FIELDSET_ATTRIBS">
 
 		</fieldset>
 	</fields>
