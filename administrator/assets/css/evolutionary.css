@@ -1,3 +1,43 @@
+.icon-48-actions {
+      background-image: url(../images/l_actions.png);
+      padding-left:60px!important;
+}
+
+.icon-48-action {
+      background-image: url(../images/l_actions.png);
+      padding-left:60px!important;
+}
+
+.icon-48-animations {
+      background-image: url(../images/l_animations.png);
+      padding-left:60px!important;
+}
+
+.icon-48-animation {
+      background-image: url(../images/l_animations.png);
+      padding-left:60px!important;
+}
+
+.icon-48-configurations {
+      background-image: url(../images/l_configurations.png);
+      padding-left:60px!important;
+}
+
+.icon-48-configuration {
+      background-image: url(../images/l_configurations.png);
+      padding-left:60px!important;
+}
+
+.icon-48-textures {
+      background-image: url(../images/l_textures.png);
+      padding-left:60px!important;
+}
+
+.icon-48-texture {
+      background-image: url(../images/l_textures.png);
+      padding-left:60px!important;
+}
+
 .icon-48-breedables {
       background-image: url(../images/l_breedables.png);
       padding-left:60px!important;

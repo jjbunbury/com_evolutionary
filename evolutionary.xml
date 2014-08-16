@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.0" method="upgrade">
     <name>com_evolutionary</name>
-    <creationDate>2014-08-10</creationDate>
+    <creationDate>2014-08-15</creationDate>
     <copyright>Copyright (C) 2014. All rights reserved.</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <author>Dazzle Software</author>
     <authorEmail>support@dazzlesoftware.org</authorEmail>
     <authorUrl>http://dazzlesoftware.org</authorUrl>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>The evolutionary breedables project for Second Life provides a fast and concise LSL library that simplifies event handling, prim animations, and avatar interactions for rapid virtual pet development. This full featured LSL framework is lightweight and built with progressive enhancement, and has a flexible, easily scale-able design for adding features to physical and non-physical animals, pets, and other creations.All features are optional and extendable!</description>
-    
-    
     
     <install> <!-- Runs on install -->
         <sql>
@@ -22,7 +20,11 @@
             <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
-
+	<update> 
+		<schemas> 
+			<schemapath type="mysql">sql/updates</schemapath>
+		</schemas> 
+	</update>
     <files folder="site">
         <filename>index.html</filename>
         <filename>evolutionary.php</filename>
@@ -42,6 +44,14 @@
         <menu img="components/com_evolutionary/assets/images/s_com_evolutionary.png" >COM_EVOLUTIONARY</menu>
         <submenu>
             
+			<menu link="option=com_evolutionary&amp;view=actions" view="actions" img="components/com_evolutionary/assets/images/s_actions.png" alt="Evolutionary/Actions">COM_EVOLUTIONARY_TITLE_ACTIONS</menu>
+
+			<menu link="option=com_evolutionary&amp;view=animations" view="animations" img="components/com_evolutionary/assets/images/s_animations.png" alt="Evolutionary/Animations">COM_EVOLUTIONARY_TITLE_ANIMATIONS</menu>
+
+			<menu link="option=com_evolutionary&amp;view=configurations" view="configurations" img="components/com_evolutionary/assets/images/s_configurations.png" alt="Evolutionary/Configurations">COM_EVOLUTIONARY_TITLE_CONFIGURATIONS</menu>
+
+			<menu link="option=com_evolutionary&amp;view=textures" view="textures" img="components/com_evolutionary/assets/images/s_textures.png" alt="Evolutionary/Textures">COM_EVOLUTIONARY_TITLE_TEXTURES</menu>
+
 			<menu link="option=com_evolutionary&amp;view=breedables" view="breedables" img="components/com_evolutionary/assets/images/s_breedables.png" alt="Evolutionary/Breedables">COM_EVOLUTIONARY_TITLE_BREEDABLES</menu>
 
 			<menu link="option=com_categories&amp;extension=com_evolutionary" view="categories" img="components/com_evolutionary/assets/images/s_breedables.png" alt="Evolutionary/Categories">COM_EVOLUTIONARY_BREEDABLES_CATEGORY</menu>
@@ -71,7 +81,9 @@
     <plugins>
         <plugin group="search" plugin="evolutionary"/>
     </plugins>
-    
+    <modules>
+		<module module="mod_evolutionary" />
+	</modules>
 </extension>
 <!-- Component built by the Joomla Component Creator -->
 <!-- http://www.component-creator.com/ -->

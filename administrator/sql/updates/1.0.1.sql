@@ -1,0 +1,1 @@
+ALTER TABLE `#__evolutionary_breedable` ADD asset_id int(10) unsigned NOT NULL DEFAULT 0 COMMENT 'FK to the #__assets table.' AFTER id;

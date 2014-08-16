@@ -20,6 +20,26 @@ class EvolutionaryHelper {
      */
     public static function addSubmenu($vName = '') {
         		JHtmlSidebar::addEntry(
+			JText::_('COM_EVOLUTIONARY_TITLE_ACTIONS'),
+			'index.php?option=com_evolutionary&view=actions',
+			$vName == 'actions'
+		);
+		JHtmlSidebar::addEntry(
+			JText::_('COM_EVOLUTIONARY_TITLE_ANIMATIONS'),
+			'index.php?option=com_evolutionary&view=animations',
+			$vName == 'animations'
+		);
+		JHtmlSidebar::addEntry(
+			JText::_('COM_EVOLUTIONARY_TITLE_CONFIGURATIONS'),
+			'index.php?option=com_evolutionary&view=configurations',
+			$vName == 'configurations'
+		);
+		JHtmlSidebar::addEntry(
+			JText::_('COM_EVOLUTIONARY_TITLE_TEXTURES'),
+			'index.php?option=com_evolutionary&view=textures',
+			$vName == 'textures'
+		);
+		JHtmlSidebar::addEntry(
 			JText::_('COM_EVOLUTIONARY_TITLE_BREEDABLES'),
 			'index.php?option=com_evolutionary&view=breedables',
 			$vName == 'breedables'
@@ -32,7 +52,6 @@ class EvolutionaryHelper {
 		if ($vName=='categories') {
 			JToolBarHelper::title('Evolutionary: JCATEGORIES (COM_EVOLUTIONARY_TITLE_BREEDABLES)');
 		}
-
     }
 
     /**

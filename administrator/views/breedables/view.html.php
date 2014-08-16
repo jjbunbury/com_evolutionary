@@ -108,42 +108,6 @@ class EvolutionaryViewBreedables extends JViewLegacy {
 
         $this->extra_sidebar = '';
         
-		//Filter for the field texture
-		$select_label = JText::sprintf('COM_EVOLUTIONARY_FILTER_SELECT_LABEL', 'Skinsets');
-		$options = array();
-		$options[0] = new stdClass();
-		$options[0]->value = "test";
-		$options[0]->text = "test";
-		JHtmlSidebar::addFilter(
-			$select_label,
-			'filter_texture',
-			JHtml::_('select.options', $options , "value", "text", $this->state->get('filter.texture'), true)
-		);
-
-		//Filter for the field animation
-		$select_label = JText::sprintf('COM_EVOLUTIONARY_FILTER_SELECT_LABEL', 'Animations');
-		$options = array();
-		$options[0] = new stdClass();
-		$options[0]->value = "test";
-		$options[0]->text = "test";
-		JHtmlSidebar::addFilter(
-			$select_label,
-			'filter_animation',
-			JHtml::_('select.options', $options , "value", "text", $this->state->get('filter.animation'), true)
-		);
-
-		//Filter for the field config
-		$select_label = JText::sprintf('COM_EVOLUTIONARY_FILTER_SELECT_LABEL', 'Breed Settings');
-		$options = array();
-		$options[0] = new stdClass();
-		$options[0]->value = "test";
-		$options[0]->text = "test";
-		JHtmlSidebar::addFilter(
-			$select_label,
-			'filter_config',
-			JHtml::_('select.options', $options , "value", "text", $this->state->get('filter.config'), true)
-		);
-
 		JHtmlSidebar::addFilter(
 
 			JText::_('JOPTION_SELECT_PUBLISHED'),
@@ -154,27 +118,6 @@ class EvolutionaryViewBreedables extends JViewLegacy {
 
 		);
 
-		JHtmlSidebar::addFilter(
-			JText::_("JOPTION_SELECT_CATEGORY"),
-			'filter_category',
-			JHtml::_('select.options', JHtml::_('category.options', 'com_evolutionary'), "value", "text", $this->state->get('filter.category'))
-
-		);
-
-			//Filter for the field created
-			$this->extra_sidebar .= '<small><label for="filter_from_created">From Created</label></small>';
-			$this->extra_sidebar .= JHtml::_('calendar', $this->state->get('filter.created.from'), 'filter_from_created', 'filter_from_created', '%Y-%m-%d', array('style' => 'width:142px;', 'onchange' => 'this.form.submit();'));
-			$this->extra_sidebar .= '<small><label for="filter_to_created">To Created</label></small>';
-			$this->extra_sidebar .= JHtml::_('calendar', $this->state->get('filter.created.to'), 'filter_to_created', 'filter_to_created', '%Y-%m-%d', array('style' => 'width:142px;', 'onchange'=> 'this.form.submit();'));
-			$this->extra_sidebar .= '<hr class="hr-condensed">';
-
-			//Filter for the field modified
-			$this->extra_sidebar .= '<small><label for="filter_from_modified">From Modified</label></small>';
-			$this->extra_sidebar .= JHtml::_('calendar', $this->state->get('filter.modified.from'), 'filter_from_modified', 'filter_from_modified', '%Y-%m-%d', array('style' => 'width:142px;', 'onchange' => 'this.form.submit();'));
-			$this->extra_sidebar .= '<small><label for="filter_to_modified">To Modified</label></small>';
-			$this->extra_sidebar .= JHtml::_('calendar', $this->state->get('filter.modified.to'), 'filter_to_modified', 'filter_to_modified', '%Y-%m-%d', array('style' => 'width:142px;', 'onchange'=> 'this.form.submit();'));
-			$this->extra_sidebar .= '<hr class="hr-condensed">';
-
     }
 
 	protected function getSortFields()
@@ -182,16 +125,12 @@ class EvolutionaryViewBreedables extends JViewLegacy {
 		return array(
 		'a.id' => JText::_('JGRID_HEADING_ID'),
 		'a.title' => JText::_('COM_EVOLUTIONARY_BREEDABLES_TITLE'),
-		'a.alias' => JText::_('COM_EVOLUTIONARY_BREEDABLES_ALIAS'),
+		'a.unique_id' => JText::_('COM_EVOLUTIONARY_BREEDABLES_UNIQUE_ID'),
+		'a.species' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CATEGORY'),
 		'a.texture' => JText::_('COM_EVOLUTIONARY_BREEDABLES_TEXTURE'),
+		'a.configuration' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CONFIGURATION'),
 		'a.animation' => JText::_('COM_EVOLUTIONARY_BREEDABLES_ANIMATION'),
-		'a.config' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CONFIG'),
 		'a.state' => JText::_('JSTATUS'),
-		'a.category' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CATEGORY'),
-		'a.created' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CREATED'),
-		'a.modified' => JText::_('COM_EVOLUTIONARY_BREEDABLES_MODIFIED'),
-		'a.modified_by' => JText::_('COM_EVOLUTIONARY_BREEDABLES_MODIFIED_BY'),
-		'a.version' => JText::_('COM_EVOLUTIONARY_BREEDABLES_VERSION'),
 		'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 		);
 	}

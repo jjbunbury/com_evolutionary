@@ -23,6 +23,66 @@ class EvolutionaryModelBreedable extends JModelAdmin
 	 */
 	protected $text_prefix = 'COM_EVOLUTIONARY';
 
+	/**
+	 * The type alias for this content type (for example, 'com_evolutionary.breedable').
+	 *
+	 * @var      string
+	 * @since    3.2
+	 */
+	public $typeAlias = 'com_evolutionary.breedable';
+
+
+	/**
+	 * Method to test whether a record can have its state edited.
+	 *
+	 * @param   object    $record    A record object.
+	 *
+	 * @return  boolean  True if allowed to change the state of the record. Defaults to the permission set in the component.
+	 * @since   1.6
+	 */
+	protected function canEditState($record)
+	{
+		$user = JFactory::getUser();
+
+		// Check for existing breedable.
+		if (!empty($record->id))
+		{
+			return $user->authorise('core.edit.state', 'com_evolutionary.breedable.' . (int) $record->id);
+		}
+		// New breedable, so check against the category.
+		elseif (!empty($record->species))
+		{
+			return $user->authorise('core.edit.state', 'com_evolutionary.category.' . (int) $record->species);
+		}
+		// Default to component settings if neither breedable nor category known.
+		else
+		{
+			return parent::canEditState('com_evolutionary');
+		}
+	}
+
+	/**
+	 * Prepare and sanitise the table data prior to saving.
+	 *
+	 * @param   JTable    A JTable object.
+	 *
+	 * @return  void
+	 * @since   1.6
+	 */
+	protected function prepareTable($table)
+	{
+		// Set the publish date to now
+		$db = $this->getDbo();
+
+		// Increment the content version number.
+		$table->version++;
+
+		// Reorder the breedables within the category so the new breedable is first
+		if (empty($table->id))
+		{
+			$table->reorder('species = ' . (int) $table->species . ' AND state >= 0');
+		}
+	}
 
 	/**
 	 * Returns a reference to the a Table object, always creating it.
@@ -105,6 +165,7 @@ class EvolutionaryModelBreedable extends JModelAdmin
 	 *
 	 * @since	1.6
 	 */
+/*
 	protected function prepareTable($table)
 	{
 		jimport('joomla.filter.output');
@@ -121,5 +182,5 @@ class EvolutionaryModelBreedable extends JModelAdmin
 
 		}
 	}
-
+*/
 }

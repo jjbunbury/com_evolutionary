@@ -62,26 +62,30 @@ $document->addStyleSheet('components/com_evolutionary/assets/css/evolutionary.cs
 				<div class="controls"><?php echo $this->form->getInput('title'); ?></div>
 			</div>
 			<div class="control-group">
+				<div class="control-label"><?php echo $this->form->getLabel('unique_id'); ?></div>
+				<div class="controls"><?php echo $this->form->getInput('unique_id'); ?></div>
+			</div>
+			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('alias'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('alias'); ?></div>
+			</div>
+			<div class="control-group">
+				<div class="control-label"><?php echo $this->form->getLabel('species'); ?></div>
+				<div class="controls"><?php echo $this->form->getInput('species'); ?></div>
 			</div>
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('texture'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('texture'); ?></div>
 			</div>
 			<div class="control-group">
+				<div class="control-label"><?php echo $this->form->getLabel('configuration'); ?></div>
+				<div class="controls"><?php echo $this->form->getInput('configuration'); ?></div>
+			</div>
+			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('animation'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('animation'); ?></div>
 			</div>
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('config'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('config'); ?></div>
-			</div>
 				<input type="hidden" name="jform[state]" value="<?php echo $this->item->state; ?>" />
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('category'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('category'); ?></div>
-			</div>
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('created'); ?></div>
 				<div class="controls"><?php echo $this->form->getInput('created'); ?></div>
@@ -116,11 +120,7 @@ $document->addStyleSheet('components/com_evolutionary/assets/css/evolutionary.cs
         </div>
         <?php echo JHtml::_('bootstrap.endTab'); ?>
         
-        <?php if (JFactory::getUser()->authorise('core.admin','evolutionary')) : ?>
-	<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'permissions', JText::_('JGLOBAL_ACTION_PERMISSIONS_LABEL', true)); ?>
-		<?php echo $this->form->getInput('rules'); ?>
-	<?php echo JHtml::_('bootstrap.endTab'); ?>
-<?php endif; ?>
+        
 
         <?php echo JHtml::_('bootstrap.endTabSet'); ?>
 

@@ -114,31 +114,19 @@ if (!empty($this->extra_sidebar)) {
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_TITLE', 'a.title', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_ALIAS', 'a.alias', $listDirn, $listOrder); ?>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_UNIQUE_ID', 'a.unique_id', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CATEGORY', 'a.species', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_TEXTURE', 'a.texture', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CONFIGURATION', 'a.configuration', $listDirn, $listOrder); ?>
+				</th>
+				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_ANIMATION', 'a.animation', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CONFIG', 'a.config', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CATEGORY', 'a.category', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CREATED', 'a.created', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_MODIFIED', 'a.modified', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_MODIFIED_BY', 'a.modified_by', $listDirn, $listOrder); ?>
-				</th>
-				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_VERSION', 'a.version', $listDirn, $listOrder); ?>
 				</th>
                     
                     
@@ -216,7 +204,11 @@ if (!empty($this->extra_sidebar)) {
 				</td>
 				<td>
 
-					<?php echo $item->alias; ?>
+					<?php echo $item->unique_id; ?>
+				</td>
+				<td>
+
+					<?php echo $item->species; ?>
 				</td>
 				<td>
 
@@ -224,31 +216,11 @@ if (!empty($this->extra_sidebar)) {
 				</td>
 				<td>
 
+					<?php echo $item->configuration; ?>
+				</td>
+				<td>
+
 					<?php echo $item->animation; ?>
-				</td>
-				<td>
-
-					<?php echo $item->config; ?>
-				</td>
-				<td>
-
-					<?php echo $item->category; ?>
-				</td>
-				<td>
-
-					<?php echo $item->created; ?>
-				</td>
-				<td>
-
-					<?php echo $item->modified; ?>
-				</td>
-				<td>
-
-					<?php echo $item->modified_by; ?>
-				</td>
-				<td>
-
-					<?php echo $item->version; ?>
 				</td>
 
 

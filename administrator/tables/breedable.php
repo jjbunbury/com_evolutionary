@@ -37,11 +37,18 @@ class EvolutionaryTablebreedable extends JTable {
         
 		$input = JFactory::getApplication()->input;
 		$task = $input->getString('task', '');
-		if(($task == 'save' || $task == 'apply') && (!JFactory::getUser()->authorise('core.edit.state','com_evolutionary.breedable.'.$array['id']) && $array['state'] == 1)){
+		if(($task == 'save' || $task == 'apply') && (!JFactory::getUser()->authorise('core.edit.state','com_evolutionary') && $array['state'] == 1)){
 			$array['state'] = 0;
 		}
 		if($array['id'] == 0){
+			$array['created'] = date("Y-m-d H:i:s");
+		}
+		if($array['id'] == 0){
 			$array['created_by'] = JFactory::getUser()->id;
+		}
+		$task = JFactory::getApplication()->input->get('task');
+		if($task == 'apply' || $task == 'save'){
+			$array['modified'] = date("Y-m-d H:i:s");
 		}
 
         if (isset($array['params']) && is_array($array['params'])) {

@@ -26,14 +26,15 @@ class EvolutionaryModelBreedables extends JModelList {
     public function __construct($config = array()) {
         if (empty($config['filter_fields'])) {
             $config['filter_fields'] = array(
-                                'id', 'a.id',
+                'id', 'a.id',
                 'title', 'a.title',
+                'unique_id', 'a.unique_id',
                 'alias', 'a.alias',
+                'species', 'a.species',
                 'texture', 'a.texture',
+                'configuration', 'a.configuration',
                 'animation', 'a.animation',
-                'config', 'a.config',
                 'state', 'a.state',
-                'category', 'a.category',
                 'created', 'a.created',
                 'created_by', 'a.created_by',
                 'modified', 'a.modified',
@@ -64,26 +65,6 @@ class EvolutionaryModelBreedables extends JModelList {
         $this->setState('filter.state', $published);
 
         
-		//Filtering texture
-		$this->setState('filter.texture', $app->getUserStateFromRequest($this->context.'.filter.texture', 'filter_texture', '', 'string'));
-
-		//Filtering animation
-		$this->setState('filter.animation', $app->getUserStateFromRequest($this->context.'.filter.animation', 'filter_animation', '', 'string'));
-
-		//Filtering config
-		$this->setState('filter.config', $app->getUserStateFromRequest($this->context.'.filter.config', 'filter_config', '', 'string'));
-
-		//Filtering category
-		$this->setState('filter.category', $app->getUserStateFromRequest($this->context.'.filter.category', 'filter_category', '', 'string'));
-
-		//Filtering created
-		$this->setState('filter.created.from', $app->getUserStateFromRequest($this->context.'.filter.created.from', 'filter_from_created', '', 'string'));
-		$this->setState('filter.created.to', $app->getUserStateFromRequest($this->context.'.filter.created.to', 'filter_to_created', '', 'string'));
-
-		//Filtering modified
-		$this->setState('filter.modified.from', $app->getUserStateFromRequest($this->context.'.filter.modified.from', 'filter_from_modified', '', 'string'));
-		$this->setState('filter.modified.to', $app->getUserStateFromRequest($this->context.'.filter.modified.to', 'filter_to_modified', '', 'string'));
-
 
         // Load the parameters.
         $params = JComponentHelper::getParams('com_evolutionary');
@@ -135,9 +116,9 @@ class EvolutionaryModelBreedables extends JModelList {
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
-		// Join over the category 'category'
-		$query->select('category.title AS category');
-		$query->join('LEFT', '#__categories AS category ON category.id = a.category');
+		// Join over the species 'species'
+		$query->select('species.title AS species');
+		$query->join('LEFT', '#__categories AS species ON species.id = a.species');
 		// Join over the user field 'created_by'
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');
@@ -159,55 +140,11 @@ class EvolutionaryModelBreedables extends JModelList {
                 $query->where('a.id = ' . (int) substr($search, 3));
             } else {
                 $search = $db->Quote('%' . $db->escape($search, true) . '%');
-                $query->where('( a.title LIKE '.$search.'  OR  a.alias LIKE '.$search.'  OR  a.texture LIKE '.$search.'  OR  a.animation LIKE '.$search.'  OR  a.config LIKE '.$search.'  OR  a.category LIKE '.$search.'  OR  a.created LIKE '.$search.'  OR  a.modified LIKE '.$search.'  OR  a.modified_by LIKE '.$search.'  OR  a.version LIKE '.$search.' )');
+                $query->where('( a.title LIKE '.$search.' )');
             }
         }
 
         
-
-		//Filtering texture
-		$filter_texture = $this->state->get("filter.texture");
-		if ($filter_texture) {
-			$query->where("a.texture = '".$db->escape($filter_texture)."'");
-		}
-
-		//Filtering animation
-		$filter_animation = $this->state->get("filter.animation");
-		if ($filter_animation) {
-			$query->where("a.animation = '".$db->escape($filter_animation)."'");
-		}
-
-		//Filtering config
-		$filter_config = $this->state->get("filter.config");
-		if ($filter_config) {
-			$query->where("a.config = '".$db->escape($filter_config)."'");
-		}
-
-		//Filtering category
-		$filter_category = $this->state->get("filter.category");
-		if ($filter_category) {
-			$query->where("a.category = '".$db->escape($filter_category)."'");
-		}
-
-		//Filtering created
-		$filter_created_from = $this->state->get("filter.created.from");
-		if ($filter_created_from) {
-			$query->where("a.created >= '".$db->escape($filter_created_from)."'");
-		}
-		$filter_created_to = $this->state->get("filter.created.to");
-		if ($filter_created_to) {
-			$query->where("a.created <= '".$db->escape($filter_created_to)."'");
-		}
-
-		//Filtering modified
-		$filter_modified_from = $this->state->get("filter.modified.from");
-		if ($filter_modified_from) {
-			$query->where("a.modified >= '".$db->escape($filter_modified_from)."'");
-		}
-		$filter_modified_to = $this->state->get("filter.modified.to");
-		if ($filter_modified_to) {
-			$query->where("a.modified <= '".$db->escape($filter_modified_to)."'");
-		}
 
 
         // Add the list ordering clause.
