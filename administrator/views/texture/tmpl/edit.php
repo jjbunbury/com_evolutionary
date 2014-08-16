@@ -62,8 +62,8 @@ $document->addStyleSheet('components/com_evolutionary/assets/css/evolutionary.cs
 				<div class="controls"><?php echo $this->form->getInput('title'); ?></div>
 			</div>
 			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('species'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('species'); ?></div>
+				<div class="control-label"><?php echo $this->form->getLabel('catid'); ?></div>
+				<div class="controls"><?php echo $this->form->getInput('catid'); ?></div>
 			</div>
 			<div class="control-group">
 				<div class="control-label"><?php echo $this->form->getLabel('gen'); ?></div>

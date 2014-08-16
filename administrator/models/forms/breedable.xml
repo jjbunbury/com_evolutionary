@@ -1,137 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset>
+	<fieldset addfieldpath="/administrator/components/com_categories/models/fields">
 
-              <field name="id" type="text" default="0" label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ID"
-            readonly="true" class="readonly"
-            description="JGLOBAL_FIELD_ID_DESC" /> 
+		<field name="id"  type="text" class="readonly" label="COM_EVOLUTIONARY_FIELD_ID_LABEL"
+			description ="COM_EVOLUTIONARY_FIELD_ID_DESC" size="10" default="0"
+			readonly="true" />
 
-       <field name="title" type="text"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_TITLE"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_TITLE" 
-                
-                
-                
-            menu_published="0"
-            filter="raw" /> 
+		<field name="asset_id" type="hidden" filter="unset" />
 
-       <field name="unique_id" type="text"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_UNIQUE_ID"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_UNIQUE_ID" 
-                
-                
-                
-            menu_published="0"
-            filter="raw"
-            maxlength="36" /> 
+		<field name="title" type="text" label="COM_EVOLUTIONARY_FIELD_TITLE_LABEL"
+			description="COM_EVOLUTIONARY_FIELD_TITLE_DESC"
+			class="input-xxlarge input-large-text"
+			size="40"
+			required="true" />
 
-       <field name="alias" type="text"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ALIAS"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_ALIAS" 
-                
-                
-                
-            menu_published="0"
-            filter="raw" /> 
+		<field name="alias" type="text" label="COM_EVOLUTIONARY_FIELD_ALIAS_LABEL"
+			description="COM_EVOLUTIONARY_FIELD_ALIAS_DESC"
+			hint="COM_EVOLUTIONARY_FIELD_ALIAS_PLACEHOLDER"
+			size="40" />
 
-       <field name="species" type="category"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CATEGORY"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CATEGORY" 
-                
-                
-                
-            extension="com_evolutionary"
-            menu_published="0"
-            filter="raw" /> 
+		<!-- @TODO make sure we are implemented -->
+		<field name="version_note" type="text" label="COM_EVOLUTIONARY_FIELD_VERSION_NOTE_LABEL"
+			description="COM_EVOLUTIONARY_FIELD_VERSION_NOTE_DESC"
+			class="span12"
+			size="45" />
 
-       <field name="texture" type="list"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_TEXTURE"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_TEXTURE" 
-                
-                
-                
-            menu_published="0"
-            filter="raw">
-                <option value="test">test</option>
-        </field> 
-
-       <field name="configuration" type="list"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CONFIGURATION"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CONFIGURATION" 
-                
-                
-                
-            menu_published="0"
-            filter="raw">
-                <option value="test">test</option>
-        </field> 
-
-       <field name="animation" type="list"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_ANIMATION"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_ANIMATION" 
-                
-                
-                
-            menu_published="0"
-            filter="raw">
-                <option value="test">test</option>
-        </field> 
-
-       <field name="created" type="timecreated" default="" 
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CREATED"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CREATED"  /> 
-
-       <field name="created_by" type="createdby" default="" 
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_CREATED_BY"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_CREATED_BY"  /> 
-
-       <field name="modified" type="timeupdated" default="" 
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_MODIFIED"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_MODIFIED"  /> 
-
-       <field name="modified_by" type="text"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_MODIFIED_BY"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_MODIFIED_BY" 
-                
-                
-                
-            menu_published="0"
-            filter="raw" /> 
-
-       <field name="version" type="text"
-                
-            label="COM_EVOLUTIONARY_FORM_LBL_BREEDABLE_VERSION"
-            description="COM_EVOLUTIONARY_FORM_DESC_BREEDABLE_VERSION" 
-                
-                
-                
-            readonly="true" /> 
-
-         <field
-        name="state"
-        type="list"
-        label="JSTATUS"
-        description="JFIELD_PUBLISHED_DESC"
-        class="inputbox"
-        size="1"
-        default="1">
-        <option value="1">JPUBLISHED</option>
-        <option value="0">JUNPUBLISHED</option>
-        <option value="2">JARCHIVED</option>
-        <option value="-2">JTRASHED</option>
-    </field> 
-
-                        <field name="checked_out" type="hidden" filter="unset" />
-        <field name="checked_out_time" type="hidden" filter="unset" />
+		<field name="state" type="list" label="COM_EVOLUTIONARY_FIELD_PUBLISHED_LABEL"
+			description="COM_EVOLUTIONARY_FIELD_PUBLISHED_DESC" class="chzn-color-state"
+			filter="intval" size="1" default="1">
+			<option value="1">
+				COM_EVOLUTIONARY_PUBLISHED</option>
+			<option value="0">
+				COM_EVOLUTIONARY_UNPUBLISHED</option>
+			<option value="2">
+				COM_EVOLUTIONARY_ARCHIVED</option>
+			<option value="-2">
+				COM_EVOLUTIONARY_TRASHED</option>
+		</field>
 
 	</fieldset>
 
+	<fields name="attribs" label="COM_CONTENT_ATTRIBS_FIELDSET_LABEL">
+		<fieldset name="basic" label="COM_CONTENT_ATTRIBS_FIELDSET_LABEL">
+
+		</fieldset>
+	</fields>
 </form>

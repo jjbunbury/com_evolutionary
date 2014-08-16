@@ -30,7 +30,7 @@ class EvolutionaryModelBreedables extends JModelList {
                 'title', 'a.title',
                 'unique_id', 'a.unique_id',
                 'alias', 'a.alias',
-                'species', 'a.species',
+                'catid', 'a.catid',
                 'texture', 'a.texture',
                 'configuration', 'a.configuration',
                 'animation', 'a.animation',
@@ -116,9 +116,9 @@ class EvolutionaryModelBreedables extends JModelList {
 		// Join over the users for the checked out user
 		$query->select("uc.name AS editor");
 		$query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
-		// Join over the species 'species'
-		$query->select('species.title AS species');
-		$query->join('LEFT', '#__categories AS species ON species.id = a.species');
+		// Join over the catid 'catid'
+		$query->select('catid.title AS catid');
+		$query->join('LEFT', '#__categories AS catid ON catid.id = a.catid');
 		// Join over the user field 'created_by'
 		$query->select('created_by.name AS created_by');
 		$query->join('LEFT', '#__users AS created_by ON created_by.id = a.created_by');

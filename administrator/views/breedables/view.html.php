@@ -126,7 +126,7 @@ class EvolutionaryViewBreedables extends JViewLegacy {
 		'a.id' => JText::_('JGRID_HEADING_ID'),
 		'a.title' => JText::_('COM_EVOLUTIONARY_BREEDABLES_TITLE'),
 		'a.unique_id' => JText::_('COM_EVOLUTIONARY_BREEDABLES_UNIQUE_ID'),
-		'a.species' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CATEGORY'),
+		'a.catid' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CATEGORY'),
 		'a.texture' => JText::_('COM_EVOLUTIONARY_BREEDABLES_TEXTURE'),
 		'a.configuration' => JText::_('COM_EVOLUTIONARY_BREEDABLES_CONFIGURATION'),
 		'a.animation' => JText::_('COM_EVOLUTIONARY_BREEDABLES_ANIMATION'),

@@ -54,7 +54,7 @@ PRIMARY KEY (`id`)
 CREATE TABLE IF NOT EXISTS `#__evolutionary_texture` (
 `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
 `title` VARCHAR(255)  NOT NULL ,
-`species` INT(11)  NOT NULL ,
+`catid` INT(11)  NOT NULL ,
 `gen` VARCHAR(255)  NOT NULL ,
 `class` VARCHAR(255)  NOT NULL ,
 `limit` VARCHAR(255)  NOT NULL ,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `#__evolutionary_breedable` (
 `title` VARCHAR(255)  NOT NULL ,
 `unique_id` VARCHAR(36)  NOT NULL ,
 `alias` VARCHAR(255)  NOT NULL ,
-`species` INT(11)  NOT NULL ,
+`catid` INT(11)  NOT NULL ,
 `texture` VARCHAR(255)  NOT NULL ,
 `configuration` VARCHAR(255)  NOT NULL ,
 `animation` VARCHAR(255)  NOT NULL ,
@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS `#__evolutionary_breedable` (
 `attribs` TEXT NOT NULL ,
 `version` VARCHAR(255)  NOT NULL ,
 `ordering` INT(11)  NOT NULL ,
+`language` char(7) NOT NULL COMMENT 'The language code for the article.',
 PRIMARY KEY (`id`)
 ) DEFAULT COLLATE=utf8_general_ci;
 

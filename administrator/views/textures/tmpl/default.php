@@ -114,7 +114,7 @@ if (!empty($this->extra_sidebar)) {
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_TEXTURES_TITLE', 'a.title', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_TEXTURES_CATID', 'a.species', $listDirn, $listOrder); ?>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_TEXTURES_CATID', 'a.catid', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_TEXTURES_GEN', 'a.gen', $listDirn, $listOrder); ?>
@@ -201,7 +201,7 @@ if (!empty($this->extra_sidebar)) {
 				</td>
 				<td>
 
-					<?php echo $item->species; ?>
+					<?php echo $item->catid; ?>
 				</td>
 				<td>
 

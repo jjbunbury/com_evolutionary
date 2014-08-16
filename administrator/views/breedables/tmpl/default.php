@@ -117,7 +117,7 @@ if (!empty($this->extra_sidebar)) {
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_UNIQUE_ID', 'a.unique_id', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
-				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CATEGORY', 'a.species', $listDirn, $listOrder); ?>
+				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_CATEGORY', 'a.catid', $listDirn, $listOrder); ?>
 				</th>
 				<th class='left'>
 				<?php echo JHtml::_('grid.sort',  'COM_EVOLUTIONARY_BREEDABLES_TEXTURE', 'a.texture', $listDirn, $listOrder); ?>
@@ -208,7 +208,7 @@ if (!empty($this->extra_sidebar)) {
 				</td>
 				<td>
 
-					<?php echo $item->species; ?>
+					<?php echo $item->catid; ?>
 				</td>
 				<td>
 

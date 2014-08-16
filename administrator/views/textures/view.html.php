@@ -125,7 +125,7 @@ class EvolutionaryViewTextures extends JViewLegacy {
 		return array(
 		'a.id' => JText::_('JGRID_HEADING_ID'),
 		'a.title' => JText::_('COM_EVOLUTIONARY_TEXTURES_TITLE'),
-		'a.species' => JText::_('COM_EVOLUTIONARY_TEXTURES_CATID'),
+		'a.catid' => JText::_('COM_EVOLUTIONARY_TEXTURES_CATID'),
 		'a.gen' => JText::_('COM_EVOLUTIONARY_TEXTURES_GEN'),
 		'a.class' => JText::_('COM_EVOLUTIONARY_TEXTURES_CLASS'),
 		'a.limit' => JText::_('COM_EVOLUTIONARY_TEXTURES_LIMIT'),

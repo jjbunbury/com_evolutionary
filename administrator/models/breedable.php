@@ -31,6 +31,26 @@ class EvolutionaryModelBreedable extends JModelAdmin
 	 */
 	public $typeAlias = 'com_evolutionary.breedable';
 
+	/**
+	 * Method to test whether a record can be deleted.
+	 *
+	 * @param   object    $record    A record object.
+	 *
+	 * @return  boolean  True if allowed to delete the record. Defaults to the permission set in the component.
+	 * @since   1.6
+	 */
+	protected function canDelete($record)
+	{
+		if (!empty($record->id))
+		{
+			if ($record->state != -2)
+			{
+				return;
+			}
+			$user = JFactory::getUser();
+			return $user->authorise('core.delete', 'com_evolutionary.breedable.' . (int) $record->id);
+		}
+	}
 
 	/**
 	 * Method to test whether a record can have its state edited.
@@ -50,9 +70,9 @@ class EvolutionaryModelBreedable extends JModelAdmin
 			return $user->authorise('core.edit.state', 'com_evolutionary.breedable.' . (int) $record->id);
 		}
 		// New breedable, so check against the category.
-		elseif (!empty($record->species))
+		elseif (!empty($record->catid))
 		{
-			return $user->authorise('core.edit.state', 'com_evolutionary.category.' . (int) $record->species);
+			return $user->authorise('core.edit.state', 'com_evolutionary.category.' . (int) $record->catid);
 		}
 		// Default to component settings if neither breedable nor category known.
 		else
@@ -80,7 +100,7 @@ class EvolutionaryModelBreedable extends JModelAdmin
 		// Reorder the breedables within the category so the new breedable is first
 		if (empty($table->id))
 		{
-			$table->reorder('species = ' . (int) $table->species . ' AND state >= 0');
+			$table->reorder('catid = ' . (int) $table->catid . ' AND state >= 0');
 		}
 	}
 
@@ -96,6 +116,47 @@ class EvolutionaryModelBreedable extends JModelAdmin
 	public function getTable($type = 'Breedable', $prefix = 'EvolutionaryTable', $config = array())
 	{
 		return JTable::getInstance($type, $prefix, $config);
+	}
+
+	/**
+	 * Method to get a single record.
+	 *
+	 * @param	integer	The id of the primary key.
+	 *
+	 * @return	mixed	Object on success, false on failure.
+	 * @since	1.6
+	 */
+	public function getItem($pk = null)
+	{
+		if ($item = parent::getItem($pk)) {
+
+			// Convert the params field to an array.
+			$registry = new JRegistry;
+			$registry->loadString($item->attribs);
+			$item->attribs = $registry->toArray();
+
+		}
+
+		// Load associated content items
+		$app = JFactory::getApplication();
+		$assoc = JLanguageAssociations::isEnabled();
+
+		if ($assoc)
+		{
+			$item->associations = array();
+
+			if ($item->id != null)
+			{
+				$associations = JLanguageAssociations::getAssociations('com_evolutionary', '#__evolutionary_breedable', 'com_evolutionary.item', $item->id);
+
+				foreach ($associations as $tag => $association)
+				{
+					$item->associations[$tag] = $association->id;
+				}
+			}
+		}
+
+		return $item;
 	}
 
 	/**
@@ -139,25 +200,6 @@ class EvolutionaryModelBreedable extends JModelAdmin
 		}
 
 		return $data;
-	}
-
-	/**
-	 * Method to get a single record.
-	 *
-	 * @param	integer	The id of the primary key.
-	 *
-	 * @return	mixed	Object on success, false on failure.
-	 * @since	1.6
-	 */
-	public function getItem($pk = null)
-	{
-		if ($item = parent::getItem($pk)) {
-
-			//Do any procesing on fields here if needed
-
-		}
-
-		return $item;
 	}
 
 	/**

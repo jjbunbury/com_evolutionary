@@ -3,6 +3,20 @@
     <fieldset label="COM_EVOLUTIONARY" name="evolutionary">
         
     </fieldset>
+	<fieldset name="editinglayout" label="COM_EVOLUTIONARY_CONFIG_EDITOR_LAYOUT_LABEL"
+				description="COM_EVOLUTIONARY_CONFIG_EDITOR_LAYOUT_DESC">
+
+		<field
+			name="show_publishing_options"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="1"
+			label="COM_EVOLUTIONARY_SHOW_PUBLISHING_OPTIONS_LABEL"
+			description="COM_EVOLUTIONARY_SHOW_PUBLISHING_OPTIONS_DESC">
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	</fieldset>
     <fieldset 
         name="permissions"
 	description="JCONFIG_PERMISSIONS_DESC"

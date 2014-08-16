@@ -16,7 +16,7 @@
             menu_published="0"
             filter="raw" /> 
 
-       <field name="species" type="category"
+       <field name="catid" type="category"
             label="COM_EVOLUTIONARY_FORM_LBL_TEXTURE_CATID"
             description="COM_EVOLUTIONARY_FORM_DESC_TEXTURE_CATID" 
                 
