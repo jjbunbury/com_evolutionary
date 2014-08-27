@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-	<fieldset addfieldpath="/administrator/components/com_categories/models/fields">
-
-		<field name="id"  type="text" class="readonly" label="COM_EVOLUTIONARY_FIELD_ID_LABEL"
-			description ="COM_EVOLUTIONARY_FIELD_ID_DESC" size="10" default="0"
-			readonly="true" />
+	<fieldset name="sidebar" addfieldpath="/administrator/components/com_categories/models/fields">
+			<field label="COM_EVOLUTIONARY_FIELD_SPECIES_LABEL" description="COM_EVOLUTIONARY_FIELD_SPECIES_DESC"
+				name="catid"
+				type="categoryedit"
+				required="true">
+			</field>
+			<field name="state" type="list" label="COM_EVOLUTIONARY_FIELD_PUBLISHED_LABEL"
+				description="COM_EVOLUTIONARY_FIELD_PUBLISHED_DESC"
+				filter="intval" size="1" default="1">
+				<option value="1">
+					COM_EVOLUTIONARY_PUBLISHED</option>
+				<option value="0">
+					COM_EVOLUTIONARY_UNPUBLISHED</option>
+				<option value="2">
+					COM_EVOLUTIONARY_ARCHIVED</option>
+				<option value="-2">
+					COM_EVOLUTIONARY_TRASHED</option>
+			</field>
+			<field name="access" type="accesslevel" label="JFIELD_ACCESS_LABEL"
+				description="JFIELD_ACCESS_DESC" size="1" />
+	</fieldset>
 
 		<field name="asset_id" type="hidden" filter="unset" />
 
@@ -19,30 +35,76 @@
 			hint="COM_EVOLUTIONARY_FIELD_ALIAS_PLACEHOLDER"
 			size="40" />
 
-		<!-- @TODO make sure we are implemented -->
+		<field name="rules" type="rules" label="JFIELD_RULES_LABEL"
+			translate_label="false" filter="rules"
+			component="com_evolutionary" section="breedable" validate="rules" />
+
+		<field
+			name="buttonspacer"
+			label="COM_EVOLUTIONARY_ACTION_PERMISSIONS_LABEL"
+			description="COM_EVOLUTIONARY_ACTION_PERMISSIONS_DESCRIPTION"
+			type="spacer" />
+
+	<fieldset name="publishing" label="JGLOBAL_FIELDSET_METADATA_OPTIONS">
+
+		<field name="created" type="calendar" label="COM_EVOLUTIONARY_FIELD_CREATED_LABEL"
+			description="COM_EVOLUTIONARY_FIELD_CREATED_DESC" size="22"
+			format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="created_by" type="user"
+			label="COM_EVOLUTIONARY_FIELD_CREATED_BY_LABEL" description="COM_EVOLUTIONARY_FIELD_CREATED_BY_DESC" />
+
+		<field name="modified" type="calendar" class="readonly"
+			label="COM_EVOLUTIONARY_FIELD_MODIFIED_LABEL" description="COM_EVOLUTIONARY_FIELD_MODIFIED_DESC"
+			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+
+		<field name="modified_by" type="user"
+		label="COM_EVOLUTIONARY_FIELD_MODIFIED_BY_LABEL"
+		class="readonly"
+		readonly="true"
+		filter="unset"
+		 />
+
+		<field name="checked_out" type="hidden" filter="unset" />
+
+		<field name="checked_out_time" type="hidden" filter="unset" />
+
+		<field name="version" type="text" class="readonly"
+			label="COM_EVOLUTIONARY_FIELD_VERSION_LABEL" size="6" description="COM_EVOLUTIONARY_FIELD_VERSION_DESC"
+			readonly="true" filter="unset" />
+
 		<field name="version_note" type="text" label="COM_EVOLUTIONARY_FIELD_VERSION_NOTE_LABEL"
 			description="COM_EVOLUTIONARY_FIELD_VERSION_NOTE_DESC"
 			class="span12"
 			size="45" />
 
-		<field name="state" type="list" label="COM_EVOLUTIONARY_FIELD_PUBLISHED_LABEL"
-			description="COM_EVOLUTIONARY_FIELD_PUBLISHED_DESC" class="chzn-color-state"
-			filter="intval" size="1" default="1">
-			<option value="1">
-				COM_EVOLUTIONARY_PUBLISHED</option>
-			<option value="0">
-				COM_EVOLUTIONARY_UNPUBLISHED</option>
-			<option value="2">
-				COM_EVOLUTIONARY_ARCHIVED</option>
-			<option value="-2">
-				COM_EVOLUTIONARY_TRASHED</option>
-		</field>
+		<field name="id"  type="text" class="readonly" label="COM_EVOLUTIONARY_FIELD_ID_LABEL"
+			description ="COM_EVOLUTIONARY_FIELD_ID_DESC" size="10" default="0"
+			readonly="true" />
+
+		<field name="unique_id"  type="text"
+			label="COM_EVOLUTIONARY_FIELD_UNIQUE_ID_LABEL"
+			description ="COM_EVOLUTIONARY_FIELD_UNIQUE_ID_DESC"
+			size="10"
+			maxlength="36"
+			default="00000000-0000-0000-0000-000000000000"
+			filter="string"
+		/>
+
+		<field name="ordering" type="text" label="JFIELD_ORDERING_LABEL"
+			description="JFIELD_ORDERING_DESC" size="6"
+			default="0" />
 
 	</fieldset>
 
 	<fields name="attribs" label="COM_EVOLUTIONARY_FIELDSET_ATTRIBS">
-		<fieldset name="basic" label="COM_EVOLUTIONARY_FIELDSET_ATTRIBS">
-
-		</fieldset>
+		<field name="unique_id2"  type="text"
+			label="COM_EVOLUTIONARY_FIELD_UNIQUE_ID_LABEL"
+			description ="COM_EVOLUTIONARY_FIELD_UNIQUE_ID_DESC"
+			size="10"
+			maxlength="36"
+			default="00000000-0000-0000-0000-000000000000"
+			filter="string"
+		/>
 	</fields>
 </form>

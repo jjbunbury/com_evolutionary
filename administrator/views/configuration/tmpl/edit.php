@@ -9,104 +9,134 @@
 // no direct access
 defined('_JEXEC') or die;
 
+// Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/html');
+
+// Tooltip
+// @todo we can remove this after we rewritten this similar to content edit screens
 JHtml::_('behavior.tooltip');
+// end
 JHtml::_('behavior.formvalidation');
-JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
+JHtml::_('formbehavior.chosen', 'select');
+
+$this->hiddenFieldsets = array();
+$this->hiddenFieldsets[0] = 'basic-limited';
+$this->configFieldsets = array();
+$this->configFieldsets[0] = 'editorConfig';
+
+// Create shortcut to parameters.
+$params = $this->state->get('params');
+
+$saveHistory = $this->state->get('params')->get('save_history', 0);
+
+$app = JFactory::getApplication();
+$input = $app->input;
+
+// This checks if the config options have ever been saved. If they haven't they will fall back to the original settings.
+$params = json_decode($params);
+$options = isset($params->show_publishing_options);
+
+if (!$options)
+{
+	$params->show_publishing_options = '1';
+	$params->show_configuration_options = '1';
+}
+
+// Check if the configuration uses configuration settings besides global. If so, use them.
+if (isset($this->item->attribs['show_publishing_options']) && $this->item->attribs['show_publishing_options'] != '')
+{
+	$params->show_publishing_options = $this->item->attribs['show_publishing_options'];
+}
+
+if (isset($this->item->attribs['show_configuration_options']) && $this->item->attribs['show_configuration_options'] != '')
+{
+	$params->show_configuration_options = $this->item->attribs['show_configuration_options'];
+}
 
 // Import CSS
+// @todo move this to asset form
 $document = JFactory::getDocument();
 $document->addStyleSheet('components/com_evolutionary/assets/css/evolutionary.css');
 ?>
 <script type="text/javascript">
-    js = jQuery.noConflict();
-    js(document).ready(function() {
-        
-    });
-
-    Joomla.submitbutton = function(task)
-    {
-        if (task == 'configuration.cancel') {
-            Joomla.submitform(task, document.getElementById('configuration-form'));
-        }
-        else {
-            
-            if (task != 'configuration.cancel' && document.formvalidator.isValid(document.id('configuration-form'))) {
-                
-                Joomla.submitform(task, document.getElementById('configuration-form'));
-            }
-            else {
-                alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
-            }
-        }
-    }
+	Joomla.submitbutton = function(task)
+	{
+		if (task == 'configuration.cancel' || document.formvalidator.isValid(document.id('item-form')))
+		{
+			<?php //echo $this->form->getField('articletext')->save(); ?>
+			Joomla.submitform(task, document.getElementById('item-form'));
+		}
+	}
 </script>
 
-<form action="<?php echo JRoute::_('index.php?option=com_evolutionary&layout=edit&id=' . (int) $this->item->id); ?>" method="post" enctype="multipart/form-data" name="adminForm" id="configuration-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_evolutionary&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 
-    <div class="form-horizontal">
-        <?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
+	<div class="form-inline form-inline-header">
+		<?php echo $this->form->getInput('title'); ?>
+	</div>
 
-        <?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_EVOLUTIONARY_TITLE_CONFIGURATION', true)); ?>
-        <div class="row-fluid">
-            <div class="span10 form-horizontal">
-                <fieldset class="adminform">
+	<div class="form-horizontal">
+		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
-                    			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('id'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('id'); ?></div>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_EVOLUTIONARY_CONFIGURATION_CONTENT', true)); ?>
+		<div class="row-fluid">
+			<div class="span9">
+				<?php echo $this->form->renderField('attribs'); ?>
+				<?php foreach ($this->form->getGroup('attribs') as $field) : ?>
+					<?php echo $field->renderField(); ?>
+				<?php endforeach; ?>
 			</div>
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('title'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('title'); ?></div>
+			<div class="span3">
+				<?php //echo $this->form->renderField('sidebar'); ?>
+				<?php //foreach ($this->form->getGroup('sidebar') as $field) : ?>
+					<?php //echo print_r($field, true); ?>
+					<?php //echo $field->renderField(); ?>
+					
+				<?php //endforeach; ?>
+
+				
+			<!-- SIDE MENU -->
+				<?php echo $this->form->renderFieldset('sidebar'); ?>
+				<?php //echo JLayoutHelper::render('joomla.edit.global', $this); ?>
 			</div>
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('unique_id'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('unique_id'); ?></div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php // Do not show the publishing options if the edit form is configured not to. ?>
+		<?php if ($params->show_publishing_options == 1) : ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_EVOLUTIONARY_FIELDSET_PUBLISHING', true)); ?>
+			<div class="row-fluid form-horizontal-desktop">
+				<div class="span6">
+					<?php //echo JLayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+					<?php echo $this->form->renderFieldset('publishing'); ?>
+					<?php //echo $this->loadTemplate('publishing'); ?>
+				</div>
 			</div>
-				<input type="hidden" name="jform[attribs]" value="<?php echo $this->item->attribs; ?>" />
-				<input type="hidden" name="jform[state]" value="<?php echo $this->item->state; ?>" />
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('created'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('created'); ?></div>
-			</div>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php endif; ?>
 
-				<?php if(empty($this->item->created_by)){ ?>
-					<input type="hidden" name="jform[created_by]" value="<?php echo JFactory::getUser()->id; ?>" />
+		<?php $this->show_options = $params->show_configuration_options; ?>
+		<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
-				<?php } 
-				else{ ?>
-					<input type="hidden" name="jform[created_by]" value="<?php echo $this->item->created_by; ?>" />
+		<?php if ($this->canDo->get('core.admin')) : ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'editor', JText::_('COM_EVOLUTIONARY_SLIDER_EDITOR_CONFIG', true)); ?>
+			<?php echo $this->form->renderFieldset('editorConfig'); ?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php endif; ?>
 
-				<?php } ?>			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('modified'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('modified'); ?></div>
-			</div>
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('modified_by'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('modified_by'); ?></div>
-			</div>
-				<input type="hidden" name="jform[checked_out]" value="<?php echo $this->item->checked_out; ?>" />
-				<input type="hidden" name="jform[checked_out_time]" value="<?php echo $this->item->checked_out_time; ?>" />
-			<div class="control-group">
-				<div class="control-label"><?php echo $this->form->getLabel('version'); ?></div>
-				<div class="controls"><?php echo $this->form->getInput('version'); ?></div>
-			</div>
-				<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>" />
+		<?php if ($this->canDo->get('core.admin')) : ?>
+			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'permissions', JText::_('COM_EVOLUTIONARY_FIELDSET_RULES', true)); ?>
+				<?php echo $this->form->getInput('rules'); ?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php endif; ?>
+
+		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
+
+		<input type="hidden" name="task" value="" />
+		<input type="hidden" name="return" value="<?php echo $input->getCmd('return'); ?>" />
+		<?php echo JHtml::_('form.token'); ?>
 
 
-                </fieldset>
-            </div>
-        </div>
-        <?php echo JHtml::_('bootstrap.endTab'); ?>
-        
-        
-
-        <?php echo JHtml::_('bootstrap.endTabSet'); ?>
-
-        <input type="hidden" name="task" value="" />
-        <?php echo JHtml::_('form.token'); ?>
-
-    </div>
+		</div>
 </form>

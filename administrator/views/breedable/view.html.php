@@ -1,78 +1,114 @@
 <?php
-
 /**
- * @version     1.0.0
- * @package     com_evolutionary
- * @copyright   Copyright (C) 2014. All rights reserved.
+ * @package     Joomla.Administrator
+ * @subpackage  com_evolutionary
+ *
+ * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @author      Dazzle Software <support@dazzlesoftware.org> - http://dazzlesoftware.org
  */
-// No direct access
+
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.view');
-
 /**
- * View to edit
+ * View to edit an breedable.
+ *
+ * @package     Joomla.Administrator
+ * @subpackage  com_evolutionary
+ * @since       1.6
  */
-class EvolutionaryViewBreedable extends JViewLegacy {
+class EvolutionaryViewBreedable extends JViewLegacy
+{
+	protected $form;
 
-    protected $state;
-    protected $item;
-    protected $form;
+	protected $item;
 
-    /**
-     * Display the view
-     */
-    public function display($tpl = null) {
-        $this->state = $this->get('State');
-        $this->item = $this->get('Item');
-        $this->form = $this->get('Form');
+	protected $state;
 
-        // Check for errors.
-        if (count($errors = $this->get('Errors'))) {
-            throw new Exception(implode("\n", $errors));
-        }
+	/**
+	 * Display the view
+	 */
+	public function display($tpl = null)
+	{
 
-        $this->addToolbar();
-        parent::display($tpl);
-    }
+		$this->form		= $this->get('Form');
+		$this->item		= $this->get('Item');
+		$this->state	= $this->get('State');
+		$this->canDo	= JHelperContent::getActions('com_evolutionary', 'breedable', $this->item->id);
 
-    /**
-     * Add the page title and toolbar.
-     */
-    protected function addToolbar() {
-        JFactory::getApplication()->input->set('hidemainmenu', true);
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			JError::raiseError(500, implode("\n", $errors));
+			return false;
+		}
 
-        $user = JFactory::getUser();
-        $isNew = ($this->item->id == 0);
-        if (isset($this->item->checked_out)) {
-            $checkedOut = !($this->item->checked_out == 0 || $this->item->checked_out == $user->get('id'));
-        } else {
-            $checkedOut = false;
-        }
-        $canDo = EvolutionaryHelper::getActions();
+		if ($this->getLayout() == 'modal')
+		{
+			$this->form->setFieldAttribute('catid', 'readonly', 'true');
+		}
 
-        JToolBarHelper::title(JText::_('COM_EVOLUTIONARY_TITLE_BREEDABLE'), 'breedable.png');
+		$this->addToolbar();
+		parent::display($tpl);
+	}
 
-        // If not checked out, can save the item.
-        if (!$checkedOut && ($canDo->get('core.edit') || ($canDo->get('core.create')))) {
+	/**
+	 * Add the page title and toolbar.
+	 *
+	 * @since   1.6
+	 */
+	protected function addToolbar()
+	{
+		JFactory::getApplication()->input->set('hidemainmenu', true);
+		$user		= JFactory::getUser();
+		$userId		= $user->get('id');
+		$isNew		= ($this->item->id == 0);
+		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
 
-            JToolBarHelper::apply('breedable.apply', 'JTOOLBAR_APPLY');
-            JToolBarHelper::save('breedable.save', 'JTOOLBAR_SAVE');
-        }
-        if (!$checkedOut && ($canDo->get('core.create'))) {
-            JToolBarHelper::custom('breedable.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
-        }
-        // If an existing item, can save to a copy.
-        if (!$isNew && $canDo->get('core.create')) {
-            JToolBarHelper::custom('breedable.save2copy', 'save-copy.png', 'save-copy_f2.png', 'JTOOLBAR_SAVE_AS_COPY', false);
-        }
-        if (empty($this->item->id)) {
-            JToolBarHelper::cancel('breedable.cancel', 'JTOOLBAR_CANCEL');
-        } else {
-            JToolBarHelper::cancel('breedable.cancel', 'JTOOLBAR_CLOSE');
-        }
-    }
+		// Built the actions for new and existing records.
+			JToolbarHelper::title(JText::_('COM_EVOLUTIONARY_PAGE_' . ($checkedOut ? 'VIEW_BREEDABLE' : ($isNew ? 'ADD_BREEDABLE' : 'EDIT_BREEDABLE'))), 'pencil-2 breedable-add');
 
+		// For new records, check the create permission.
+		if ($isNew && (count($user->getAuthorisedCategories('com_evolutionary', 'core.create')) > 0))
+		{
+			JToolbarHelper::apply('breedable.apply');
+			JToolbarHelper::save('breedable.save');
+			JToolbarHelper::save2new('breedable.save2new');
+			JToolbarHelper::cancel('breedable.cancel');
+		}
+		else
+		{
+			// Can't save the record if it's checked out.
+			if (!$checkedOut)
+			{
+				// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+				if ($this->canDo->get('core.edit') || ($this->canDo->get('core.edit.own') && $this->item->created_by == $userId))
+				{
+					JToolbarHelper::apply('breedable.apply');
+					JToolbarHelper::save('breedable.save');
+
+					// We can save this record, but check the create permission to see if we can return to make a new one.
+					if ($this->canDo->get('core.create'))
+					{
+						JToolbarHelper::save2new('breedable.save2new');
+					}
+				}
+			}
+
+			// If checked out, we can still save
+			if ($this->canDo->get('core.create'))
+			{
+				JToolbarHelper::save2copy('breedable.save2copy');
+			}
+
+			if ($this->state->params->get('save_history', 0) && $user->authorise('core.edit'))
+			{
+				JToolbarHelper::versions('com_evolutionary.breedable', $this->item->id);
+			}
+
+			JToolbarHelper::cancel('breedable.cancel', 'COM_EVOLUTIONARY_TOOLBAR_CLOSE');
+		}
+
+		//JToolbarHelper::divider();
+		//JToolbarHelper::help('JHELP_CONTENT_ARTICLE_MANAGER_EDIT');
+	}
 }

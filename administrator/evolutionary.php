@@ -10,16 +10,15 @@
 
 // no direct access
 defined('_JEXEC') or die;
+JHtml::_('behavior.tabstate');
 
-// Access check.
-if (!JFactory::getUser()->authorise('core.manage', 'com_evolutionary')) 
+if (!JFactory::getUser()->authorise('core.manage', 'com_evolutionary'))
 {
-	throw new Exception(JText::_('JERROR_ALERTNOAUTHOR'));
+	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
 }
 
-// Include dependancies
-jimport('joomla.application.component.controller');
+JLoader::register('EvolutionaryHelper', __DIR__ . '/helpers/evolutionary.php');
 
-$controller	= JControllerLegacy::getInstance('Evolutionary');
+$controller = JControllerLegacy::getInstance('Evolutionary');
 $controller->execute(JFactory::getApplication()->input->get('task'));
 $controller->redirect();

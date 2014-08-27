@@ -13,11 +13,19 @@ defined('_JEXEC') or die;
 /**
  * Evolutionary helper.
  */
-class EvolutionaryHelper {
+class EvolutionaryHelper extends JHelperContent
+{
+	public static $extension = 'com_evolutionary';
 
-    /**
-     * Configure the Linkbar.
-     */
+	/**
+	 * Configure the Linkbar.
+	 *
+	 * @param   string  $vName  The name of the active view.
+	 *
+	 * @return  void
+	 *
+	 * @since   1.6
+	 */
     public static function addSubmenu($vName = '') {
         		JHtmlSidebar::addEntry(
 			JText::_('COM_EVOLUTIONARY_TITLE_ACTIONS'),
@@ -60,6 +68,7 @@ class EvolutionaryHelper {
      * @return	JObject
      * @since	1.6
      */
+/*
     public static function getActions() {
         $user = JFactory::getUser();
         $result = new JObject;
@@ -76,6 +85,6 @@ class EvolutionaryHelper {
 
         return $result;
     }
-
+*/
 
 }

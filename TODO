@@ -1,0 +1,6 @@
+remove associations
+remove language
+change EvolutionaryHelper::getActions for class in view like the article or breedable page
+remove meta
+implement breedable history page to restore previous version with date that will purge after days set in config
+and restore history via update table where unique_id = 

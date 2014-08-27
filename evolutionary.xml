@@ -20,11 +20,13 @@
             <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
         </sql>
     </uninstall>
+	<!-- 
 	<update> 
 		<schemas> 
 			<schemapath type="mysql">sql/updates</schemapath>
 		</schemas> 
 	</update>
+	-->
     <files folder="site">
         <filename>index.html</filename>
         <filename>evolutionary.php</filename>

@@ -1,66 +1,66 @@
 <?php
 /**
- * @version     1.0.0
- * @package     com_evolutionary
- * @copyright   Copyright (C) 2014. All rights reserved.
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2014 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @author      Dazzle Software <support@dazzlesoftware.org> - http://dazzlesoftware.org
  */
 
-// No direct access.
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.controlleradmin');
-
 /**
- * Configurations list controller class.
+ * Articles list controller class.
+ *
+ * @package     Joomla.Administrator
+ * @subpackage  com_content
+ * @since       1.6
  */
 class EvolutionaryControllerConfigurations extends JControllerAdmin
 {
 	/**
-	 * Proxy for getModel.
-	 * @since	1.6
+	 * Constructor.
+	 *
+	 * @param   array  $config	An optional associative array of configuration settings.
+
+	 * @return  ContentControllerArticles
+	 * @see     JController
+	 * @since   1.6
 	 */
-	public function getModel($name = 'configuration', $prefix = 'EvolutionaryModel')
+	public function __construct($config = array())
 	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
+		parent::__construct($config);
+	}
+
+	/**
+	 * Proxy for getModel.
+	 *
+	 * @param   string	$name	The name of the model.
+	 * @param   string	$prefix	The prefix for the PHP class name.
+	 *
+	 * @return  JModel
+	 * @since   1.6
+	 */
+	public function getModel($name = 'Configuration', $prefix = 'EvolutionaryModel', $config = array('ignore_request' => true))
+	{
+		$model = parent::getModel($name, $prefix, $config);
+
 		return $model;
 	}
-    
-    
+
 	/**
-	 * Method to save the submitted ordering values for records via AJAX.
+	 * Function that allows child controller access to model data
+	 * after the item has been deleted.
+	 *
+	 * @param   JModelLegacy  $model  The data model object.
+	 * @param   integer       $ids    The array of ids for items being deleted.
 	 *
 	 * @return  void
 	 *
-	 * @since   3.0
+	 * @since   12.2
 	 */
-	public function saveOrderAjax()
+	protected function postDeleteHook(JModelLegacy $model, $ids = null)
 	{
-		// Get the input
-		$input = JFactory::getApplication()->input;
-		$pks = $input->post->get('cid', array(), 'array');
-		$order = $input->post->get('order', array(), 'array');
-
-		// Sanitize the input
-		JArrayHelper::toInteger($pks);
-		JArrayHelper::toInteger($order);
-
-		// Get the model
-		$model = $this->getModel();
-
-		// Save the ordering
-		$return = $model->saveorder($pks, $order);
-
-		if ($return)
-		{
-			echo "1";
-		}
-
-		// Close the application
-		JFactory::getApplication()->close();
 	}
-    
-    
-    
+
 }
